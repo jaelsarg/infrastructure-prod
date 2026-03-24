@@ -16,8 +16,8 @@ terraform {
 provider "azurerm" {
   subscription_id = var.howestprime_subscription_id
   tenant_id       = var.howestprime_tenant_id
-  client_id       = var.client_id
-  client_secret   = var.client_secret
+  client_id       = var.service_principal_terraform_client_id
+  client_secret   = var.service_principal_terraform_secret
   features {
     key_vault {
       purge_soft_delete_on_destroy          = true
@@ -27,7 +27,7 @@ provider "azurerm" {
 }
 
 provider "azuread" {
-  client_id     = var.client_id
-  client_secret = var.client_secret
+  client_id     = var.service_principal_terraform_client_id
+  client_secret = var.service_principal_terraform_secret
   tenant_id     = var.howestprime_tenant_id
 }
