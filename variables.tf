@@ -27,3 +27,13 @@ variable "service_principal_terraform_sp_id" {
   description = "The Principal ID (objectID) of the Service Principal"
   sensitive   = true
 }
+
+variable "location" {
+  type        = string
+  description = "Location for all resources"
+}
+
+variable "resource_names" {
+  type        = map(string)
+  description = "Map of resource names to assign to the resources"
+}
