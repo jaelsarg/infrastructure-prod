@@ -6,10 +6,6 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.61.0"
     }
-
-    azuread = {
-      source = "hashicorp/azuread"
-    }
   }
 }
 
@@ -24,10 +20,4 @@ provider "azurerm" {
       purge_soft_deleted_secrets_on_destroy = true
     }
   }
-}
-
-provider "azuread" {
-  client_id     = var.service_principal_terraform_client_id
-  client_secret = var.service_principal_terraform_secret
-  tenant_id     = var.howestprime_tenant_id
 }
