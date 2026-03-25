@@ -6,6 +6,11 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "4.61.0"
     }
+
+    cloudamqp = {
+      source  = "cloudamqp/cloudamqp"
+      version = "~> 1.42"
+    }
   }
 }
 
@@ -20,4 +25,8 @@ provider "azurerm" {
       purge_soft_deleted_secrets_on_destroy = true
     }
   }
+}
+
+provider "cloudamqp" {
+  apikey = var.cloudamqp_api_key
 }
