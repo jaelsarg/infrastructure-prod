@@ -9,6 +9,7 @@ resource "azurerm_key_vault" "howestprime" {
   enabled_for_disk_encryption     = true
   enabled_for_deployment          = true
   enabled_for_template_deployment = true
+  rbac_authorization_enabled       = true
 }
 
 resource "azurerm_role_assignment" "howestprime_keyvault_admin" {
