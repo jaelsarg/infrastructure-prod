@@ -15,10 +15,11 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id = var.howestprime_subscription_id
-  tenant_id       = var.howestprime_tenant_id
-  client_id       = var.service_principal_terraform_client_id
-  client_secret   = var.service_principal_terraform_secret
+  subscription_id                = var.howestprime_subscription_id
+  tenant_id                      = var.howestprime_tenant_id
+  client_id                      = var.service_principal_terraform_client_id
+  client_secret                  = var.service_principal_terraform_secret
+  resource_providers_to_register = ["Microsoft.App"]
   features {
     key_vault {
       purge_soft_delete_on_destroy          = true
