@@ -8,4 +8,5 @@ resource_names = {
   azurerm_message_broker_howestprime        = "howestprime-wide-mb"
   azurerm_log_analytics_howestprime         = "howestprime-wide-la"
   azurerm_container_environment_howestprime = "howestprime-wide-ce"
+  azurerm_managed_identity_howestprime      = "howestprime-wide-mi"
 }
