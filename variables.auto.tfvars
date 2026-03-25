@@ -6,4 +6,5 @@ resource_names = {
   azurerm_key_vault_howestprime          = "howestprime-wide-k-v"
   azurerm_container_registry_howestprime = "howestprimewidecr"
   azurerm_message_broker_howestprime     = "howestprime-wide-mb"
+  azurerm_log_analytics                  = "howestprime-wide-la"
 }
