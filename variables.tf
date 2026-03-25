@@ -31,9 +31,17 @@ variable "service_principal_terraform_sp_id" {
 variable "location" {
   type        = string
   description = "Location for all resources"
+  sensitive   = false
 }
 
 variable "resource_names" {
   type        = map(string)
   description = "Map of resource names to assign to the resources"
+  sensitive   = false
+}
+
+variable "cloudamqp_api_key" {
+  type        = string
+  description = "API key for CloudAMQP provider"
+  sensitive   = true
 }
