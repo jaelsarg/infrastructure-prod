@@ -51,3 +51,12 @@ variable "usernames" {
   description = "Map of usernames to assign to the resources"
   sensitive   = false
 }
+
+variable "howestprime_allowed_ip_ranges" {
+  type = list(object({
+    name             = string
+    start_ip_address = string
+    end_ip_address   = string
+  }))
+  description = "List allowed IP addresses for documentDB firewall rule"
+}

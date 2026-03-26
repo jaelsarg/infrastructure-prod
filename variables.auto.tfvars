@@ -14,3 +14,11 @@ resource_names = {
 usernames = {
   movies_db_username = "movies-db-user"
 }
+
+howestprime_allowed_ip_ranges = [
+  {
+    name             = "allow_all"
+    start_ip_address = "0.0.0.0"
+    end_ip_address   = "255.255.255.255"
+  }
+]
