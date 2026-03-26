@@ -45,3 +45,9 @@ variable "cloudamqp_api_key" {
   description = "API key for CloudAMQP provider"
   sensitive   = true
 }
+
+variable "usernames" {
+  type        = map(string)
+  description = "Map of usernames to assign to the resources"
+  sensitive   = false
+}
