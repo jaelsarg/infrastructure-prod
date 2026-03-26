@@ -9,4 +9,8 @@ resource_names = {
   azurerm_log_analytics_howestprime         = "howestprime-wide-p-la"
   azurerm_container_environment_howestprime = "howestprime-wide-p-ce"
   azurerm_managed_identity_howestprime      = "howestprime-wide-p-mi"
+  azurerm_postgresql_movies_db_howestprime  = "howestprime-movies-db"
+}
+usernames = {
+  movies_db_username = "movies-db-user"
 }
