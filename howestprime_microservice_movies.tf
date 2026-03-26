@@ -26,3 +26,13 @@ resource "azurerm_postgresql_flexible_server_database" "movies_db_database" {
   charset    = "UTF8"
   depends_on = [azurerm_postgresql_flexible_server.movies_db]
 }
+
+resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_ranges" {
+  for_each         = { for rule in var.howestprime_allowed_ip_ranges : rule.name => rule }
+  name             = each.value.name
+  server_id        = azurerm_postgresql_flexible_server.movies_db.id
+  start_ip_address = each.value.start_ip_address
+  end_ip_address   = each.value.end_ip_address
+
+  depends_on = [azurerm_postgresql_flexible_server.movies_db]
+}
