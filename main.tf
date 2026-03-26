@@ -11,6 +11,11 @@ terraform {
       source  = "cloudamqp/cloudamqp"
       version = "~> 1.42"
     }
+
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.5"
+    }
   }
 }
 
