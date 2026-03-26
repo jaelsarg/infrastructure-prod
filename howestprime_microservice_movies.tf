@@ -36,3 +36,13 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_ranges" {
 
   depends_on = [azurerm_postgresql_flexible_server.movies_db]
 }
+
+resource "azurerm_key_vault_secret" "movies_db_password" {
+  name         = "movies-db-password"
+  value        = random_password.movies_db_password.result
+  key_vault_id = azurerm_key_vault_howestprime.id
+  depends_on = [
+    azurerm_postgresql_flexible_server.movies_db,
+    azurerm_postgresql_flexible_server_database.movies_db_database
+  ]
+}
