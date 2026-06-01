@@ -4,7 +4,7 @@ location                    = "North Europe"
 resource_names = {
   azurerm_resource_group_howestprime        = "howestprime-wide-p-arg"
   azurerm_key_vault_howestprime             = "howestprime-wide-p-k-v"
-  azurerm_container_registry_howestprime    = "howestprimewidepcr"
+  azurerm_container_registry_howestprime    = "howestprimewidepcr1"
   azurerm_message_broker_howestprime        = "howestprime-wide-p-mb"
   azurerm_log_analytics_howestprime         = "howestprime-wide-p-la"
   azurerm_container_environment_howestprime = "howestprime-wide-p-ce"
@@ -12,7 +12,7 @@ resource_names = {
   azurerm_postgresql_movies_db_howestprime  = "howestprime-movies-db"
 }
 usernames = {
-  movies_db_username = "movies-db-user"
+  movies_db_username = "moviesdbuser"
 }
 
 howestprime_allowed_ip_ranges = [
