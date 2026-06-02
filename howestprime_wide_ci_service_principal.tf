@@ -20,3 +20,20 @@ resource "azuread_service_principal" "github_cicd_sp" {
     var.service_principal_terraform_sp_id
   ]
 }
+
+// Allows pipeline to push docker images to container registry
+resource "azurerm_role_assignment" "github_cicd_role_acr_push" {
+  // Allowed to push Docker images
+  role_definition_name = "AcrPush"
+  scope = azurerm_container_registry.howestprime.id
+  principal_id = azuread_service_principal.github_cicd_sp.object_id
+  depends_on = [ azurerm_key_vault.howestprime ]
+}
+
+// Enables pipeline to manage container apps and relate resources within the resource group
+resource "azurerm_role_assignment" "github_cicd_role_contributor" {
+  role_definition_name = "Contributor"
+  scope = azurerm_resource_group.howestprime.id
+  principal_id = azuread_service_principal.github_cicd_sp.object_id
+  depends_on = [ azurerm_key_vault.howestprime ]
+}
