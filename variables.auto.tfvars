@@ -12,6 +12,8 @@ resource_names = {
   azurerm_postgresql_movies_db_howestprime  = "howestprime-movies-db"
   azurerm_postgresql_movies_db_database_howestprime = "movies"
   azurerm_postgresql_movies_db_password_howestprime = "movies-db-password"
+  azurerm_client_backoffice_service_plan_howestprime = "howestprime-backoffice-sp"
+  azurerm_linux_web_app_client_backoffice_howestprime = "howestprime-backoffice"
 }
 usernames = {
   movies_db_username = "moviesdbuser"
