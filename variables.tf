@@ -60,3 +60,15 @@ variable "howestprime_allowed_ip_ranges" {
   }))
   description = "List allowed IP addresses for documentDB firewall rule"
 }
+
+variable "github_access_token" {
+  type        = string
+  description = "GitHub access token"
+  sensitive   = true
+}
+
+variable "github_owner_name" {
+  type        = string
+  description = "GitHub owner name"
+  sensitive   = true
+}
