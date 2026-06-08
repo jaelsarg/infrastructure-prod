@@ -9,14 +9,20 @@ resource_names = {
   azurerm_log_analytics_howestprime         = "howestprime-wide-p-la"
   azurerm_container_environment_howestprime = "howestprime-wide-p-ce"
   azurerm_managed_identity_howestprime      = "howestprime-wide-p-mi"
+
   azurerm_postgresql_movies_db_howestprime  = "howestprime-movies-db"
   azurerm_postgresql_movies_db_database_howestprime = "moviesdb"
   azurerm_postgresql_movies_db_password_howestprime = "movies-db-password"
+
   azurerm_client_backoffice_service_plan_howestprime = "howestprime-backoffice-sp"
   azurerm_linux_web_app_client_backoffice_howestprime = "howestprime-backoffice"
+
   azurerm_cosmosdb_ticketing_account_howestprime = "howestprime-ticketing-cosmosdb-account"
   azurerm_cosmosdb_ticketing_db_howestprime = "ticketingdb"
+
   azurerm_cosmosdb_ticketing_db_password_howestprime = "ticketing-db-password"
+  azurerm_client_webapp_service_plan_howestprime = "howestprime-webapp-sp"
+  azurerm_linux_web_app_client_webapp_howestprime = "howestprime-webapp"
 }
 
 usernames = {
