@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "client_webapp" {
-    name = var.resource_names.azurerm_client_webapp_service_plan_howestprime
+    name = var.resource_names.azurerm_service_plan_client_webapp_howestprime
     location = azurerm_resource_group.howestprime.location
     resource_group_name = azurerm_resource_group.howestprime.name
     os_type = "Linux"
@@ -28,7 +28,7 @@ resource "azurerm_linux_web_app" "client_webapp" {
     app_settings = {
         DOCKER_REGISTRY_URL = "https://hcr.technet.howest.be"
         WEBSITES_ENABLE_APP_SERVICE_STORAGE = "false"
-        VITE_APP_TICKETING_API_URL = "https://howestprime-ticketing.${azurerm_container_app_environment.howestprime.default_domain}"
-        VITE_APP_MOVIES_BASE_API_URL = "https://howestprime-movies.${azurerm_container_app_environment.howestprime.default_domain}"
+        VITE_APP_TICKETING_API_URL = "https://microservice-ticketing.mangowater-d287b693.northeurope.azurecontainerapps.io"
+        VITE_APP_MOVIES_BASE_API_URL = "https://microservice-movies.mangowater-d287b693.northeurope.azurecontainerapps.io"
     }
 }
