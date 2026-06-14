@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "client_backoffice" {
-    name = var.resource_names.azurerm_client_backoffice_service_plan_howestprime
+    name = var.resource_names.azurerm_service_plan_client_backoffice_howestprime
     location = azurerm_resource_group.howestprime.location
     resource_group_name = azurerm_resource_group.howestprime.name
     os_type = "Linux"
@@ -33,7 +33,7 @@ locals {
 
         az_tenant_id = {
             variable_name = "az_tenant_id"
-            value = var.howestprime_tenant_id
+            value = var.azure_tenant_id
         }
 
         az_resource_group = {
@@ -43,19 +43,19 @@ locals {
 
         az_subscription_id = {
             variable_name = "az_subscription_id"
-            value = var.howestprime_subscription_id
+            value = var.azure_subscription_id
         }
     }
 
     howestprime-backoffice-gh-action-secrets = {
         howestprime_wide_ci_service_principal = {
             secret_name = "howestprime_wide_ci_service_principal"
-            value = azuread_application.github_cicd.client_id
+            value = azuread_application.github_ci_app.client_id
         }
 
         howestprime_wide_ci_service_principal_password = {
             secret_name = "howestprime_wide_ci_service_principal_password"
-            value = azuread_application_password.github_cicd_password.value
+            value = azuread_application_password.github_ci_app_password.value
         }
     }
 }
