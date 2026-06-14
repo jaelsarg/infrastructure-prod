@@ -1,5 +1,5 @@
 resource "azurerm_cosmosdb_account" "ticketing" {
-    name = var.resource_names.azurerm_cosmosdb_ticketing_account_howestprime
+    name = var.resource_login_names.howestprime_microservice_ticketing_db
     location = azurerm_resource_group.howestprime.location
     resource_group_name = azurerm_resource_group.howestprime.name
     offer_type = "Standard"
@@ -18,20 +18,20 @@ resource "azurerm_cosmosdb_account" "ticketing" {
     free_tier_enabled = true
 }
 
-resource "azurerm_cosmosdb_mongo_database" "ticketing_db" {
-    name = var.resource_names.azurerm_cosmosdb_ticketing_db_howestprime
+resource "azurerm_cosmosdb_mongo_database" "ticketing" {
+    name = var.resource_names.azurerm_cosmos_mongo_database_ticketing_howestprime
     resource_group_name = azurerm_resource_group.howestprime.name
     account_name = azurerm_cosmosdb_account.ticketing.name
 }
 
-resource "azurerm_key_vault_secret" "ticketing_db_password" {
-    name = var.resource_names.azurerm_cosmosdb_ticketing_db_password_howestprime
+resource "azurerm_key_vault_secret" "howestprime_ticketing_db" {
+    name = var.resource_names.azurerm_key_vault_secret_ticketing_howestprime
     value = local.mongo_pwd
     key_vault_id = azurerm_key_vault.howestprime.id
     depends_on = [
         azurerm_role_assignment.howestprime_keyvault_admin,
         azurerm_cosmosdb_account.ticketing,
-        azurerm_cosmosdb_mongo_database.ticketing_db
+        azurerm_cosmosdb_mongo_database.ticketing
     ]
 }
 
@@ -58,25 +58,25 @@ locals {
 
     ticketing_documentdb_password_uri = regex(
         "(https://[^/]+/secrets/[^/]+)", 
-        azurerm_key_vault_secret.ticketing_db_password.id
+        azurerm_key_vault_secret.howestprime_ticketing_db.id
     )[0]
 
     ticketing_messagebroker_password_uri = regex(
         "(https://[^/]+/secrets/[^/]+)", 
-        azurerm_key_vault_secret.message_broker_password.id
+        azurerm_key_vault_secret.howestprime_wide_p_messagebroker.id
     )[0]
     
     howestprime_repo_ticketing = "st-microservice-ticketing-jaelsargant"
 
-    howestprime-ticketing-gh-actions-variables = {
+    howestprime-ticketing-gh-action-variables = {
         howestprime_wide_messagebroker_login = {
-            variable_name = "howestprime_wide_messagebroker_login"
+            variable_name = "howestprime_wide_p_messagebroker_login"
             value = data.cloudamqp_credentials.local-admin.username
         }
 
         howestprime_wide_p_messagebroker_password_uri = {
             variable_name = "howestprime_wide_p_messagebroker_password_uri"
-            value = local.messagebroker_password_uri
+            value = local.ticketing_messagebroker_password_uri
         }
 
         howestprime_wide_p_messagebroker_uri = {
@@ -106,7 +106,7 @@ locals {
 
         howestprime_ticketing_p_documentdb_login = {
             variable_name = "howestprime_ticketing_p_documentdb_login"
-            value = var.usernames.ticketing_db_username
+            value = var.resource_login_names.howestprime_microservice_ticketing_db
         }
 
         howestprime_ticketing_p_documentdb_port = {
@@ -136,7 +136,7 @@ locals {
 
         howestprime_ticketing_p_documentdb_db = {
             variable_name = "howestprime_ticketing_p_documentdb_db"
-            value = azurerm_cosmosdb_mongo_database.ticketing_db.name
+            value = azurerm_cosmosdb_mongo_database.ticketing.name
         }
 
         howestprime_wide_keyvault_uri = {
@@ -146,17 +146,17 @@ locals {
 
         howestprime_wide_mi_keyvaultreader_uri = {
             variable_name = "howestprime_wide_mi_keyvaultreader_uri"
-            value = azurerm_user_assigned_identity.howestprime.id
+            value = azurerm_user_assigned_identity.keyvaultreader.id
         }
 
         az_tenant_id = {
             variable_name = "az_tenant_id"
-            value = var.howestprime_tenant_id
+            value = var.azure_tenant_id
         }
 
         az_subscription_id = {
             variable_name = "az_subscription_id"
-            value = var.howestprime_subscription_id
+            value = var.azure_subscription_id
         }
 
         az_resource_group = {
@@ -175,37 +175,37 @@ locals {
         }
     }
 
-    howestprime-ticketing-gh-actions-secrets = {
+    howestprime-ticketing-gh-action-secrets = {
         howestprime_wide_ci_service_principal = {
             secret_name = "howestprime_wide_ci_service_principal"
-            value = azuread_application.github_cicd.client_id
+            value = azuread_application.github_ci_app.client_id
         }
 
         howestprime_wide_ci_service_principal_password = {
             secret_name = "howestprime_wide_ci_service_principal_password"
-            value = azuread_application_password.github_cicd_password.value
+            value = azuread_application_password.github_ci_app_password.value
         }
     }
 }
 
-resource "github_actions_variable" "ticketing_variables" {
-    for_each = local.howestprime-backoffice-gh-action-variables
+resource "github_actions_variable" "howestprime_ticketing" {
+    for_each = local.howestprime-ticketing-gh-action-variables
     repository = local.howestprime_repo_ticketing
     variable_name = each.value.variable_name
     value = each.value.value
     depends_on = [
         azurerm_cosmosdb_account.ticketing,
-        azurerm_cosmosdb_mongo_database.ticketing_db
+        azurerm_cosmosdb_mongo_database.ticketing
     ]
 }
 
-resource "github_actions_secret" "ticketing_secrets" {
-    for_each = local.howestprime-backoffice-gh-action-secrets
+resource "github_actions_secret" "howestprime_ticketing" {
+    for_each = local.howestprime-ticketing-gh-action-secrets
     repository = local.howestprime_repo_ticketing
     secret_name = each.value.secret_name
     plaintext_value = each.value.value
     depends_on = [
         azurerm_cosmosdb_account.ticketing,
-        azurerm_cosmosdb_mongo_database.ticketing_db
+        azurerm_cosmosdb_mongo_database.ticketing
     ]
 }
