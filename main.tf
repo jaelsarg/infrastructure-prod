@@ -4,7 +4,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.61.0"
+      version = "4.76.0"
     }
 
     cloudamqp = {
@@ -25,8 +25,8 @@ terraform {
 }
 
 provider "azurerm" {
-  subscription_id                = var.howestprime_subscription_id
-  tenant_id                      = var.howestprime_tenant_id
+  subscription_id                = var.azure_subscription_id
+  tenant_id                      = var.azure_tenant_id
   client_id                      = var.service_principal_terraform_client_id
   client_secret                  = var.service_principal_terraform_secret
   resource_providers_to_register = ["Microsoft.App"]
