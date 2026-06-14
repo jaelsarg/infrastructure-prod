@@ -1,5 +1,5 @@
 resource "azurerm_log_analytics_workspace" "howestprime" {
-  name                = var.resource_names.azurerm_log_analytics_howestprime
-  location            = var.location
+  name = var.resource_names.azurerm_log_analytics_howestprime
+  location = azurerm_resource_group.howestprime.location
   resource_group_name = azurerm_resource_group.howestprime.name
 }
