@@ -21,7 +21,6 @@ resource "azuread_service_principal" "github_ci_app_sp" {
   ]
 }
 
-// Allows pipeline to push docker images to container registry
 resource "azurerm_role_assignment" "github_ci_app_role_acr_push" {
   role_definition_name = "AcrPush"
   scope                = azurerm_container_registry.howestprime.id
@@ -29,7 +28,6 @@ resource "azurerm_role_assignment" "github_ci_app_role_acr_push" {
   depends_on           = [azurerm_key_vault.howestprime]
 }
 
-// Enables pipeline to manage container apps and relate resources within the resource group
 resource "azurerm_role_assignment" "github_ci_app_role_contributor" {
   role_definition_name = "Contributor"
   scope                = azurerm_resource_group.howestprime.id
